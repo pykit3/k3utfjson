@@ -1,0 +1,6 @@
+_extends: gh-config
+
+repository:
+  description: force `json.dump` and `json.load` in `utf-8` encoding.
+  homepage: https://blog.openacid.com
+  topics: python, json

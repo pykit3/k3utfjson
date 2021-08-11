@@ -1,8 +1,8 @@
 import doctest
 
-import {{ name }}
+import k3utfjson
 
 
 def load_tests(loader, tests, ignore):
-    tests.addTests(doctest.DocTestSuite({{ name }}))
+    tests.addTests(doctest.DocTestSuite(k3utfjson))
     return tests

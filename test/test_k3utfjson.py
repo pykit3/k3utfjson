@@ -32,13 +32,13 @@ class TestUTFJson(unittest.TestCase):
 
         # load utf-8, result in str
 
-        rst = k3utfjson.load(b"\xe6\x88\x91")
+        rst = k3utfjson.load(b'"\xe6\x88\x91"')
         self.assertEqual('我', rst)
         self.assertEqual(str, type(rst))
 
         # load gbk, result in str, in gbk encoding
 
-        gbk = b'\xb6\xd4\xd5\xbd\xc6\xbd\xcc\xa8\xb9\xd9\xb7\xbd\xd7\xee\xd0\xc2\xb0\xe6'
+        gbk = b'"\xb6\xd4\xd5\xbd\xc6\xbd\xcc\xa8\xb9\xd9\xb7\xbd\xd7\xee\xd0\xc2\xb0\xe6"'
         self.assertEqual('对战平台官方最新版', k3utfjson.load(gbk, encoding="gbk"))
         self.assertEqual(str, type(k3utfjson.load(gbk, encoding="gbk")))
 
@@ -56,7 +56,7 @@ class TestUTFJson(unittest.TestCase):
         s = '"\x61"'
         self.assertEqual('a', k3utfjson.load(s))
 
-        s = b'\xe6\x88\x91'
+        s = b'"\xe6\x88\x91"'
         self.assertEqual('我', k3utfjson.load(s))
 
         self.assertRaises(json.JSONDecodeError, k3utfjson.load, '"\\"')

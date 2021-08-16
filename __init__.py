@@ -12,7 +12,7 @@ This library is considered production ready.
 # from .proc import CalledProcessError
 # from .proc import ProcError
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __name__ = "k3utfjson"
 
 from .utfjson import (

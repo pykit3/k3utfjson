@@ -102,7 +102,6 @@ def load(s, encoding=None):
             s = decode(s, encoding="utf-8")
         else:
             s = decode(s, encoding)
-        s = "\"" + s + "\""
     rst = json.loads(s)
 
     return rst

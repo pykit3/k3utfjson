@@ -12,8 +12,9 @@ This library is considered production ready.
 # from .proc import CalledProcessError
 # from .proc import ProcError
 
-__version__ = "0.1.1"
-__name__ = "k3utfjson"
+from importlib.metadata import version
+
+__version__ = version("k3utfjson")
 
 from .utfjson import (
     dump,
@@ -21,6 +22,6 @@ from .utfjson import (
 )
 
 __all__ = [
-    'dump',
-    'load',
+    "dump",
+    "load",
 ]

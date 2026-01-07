@@ -30,7 +30,7 @@ import json
 # str       '\xe6\x88\x91'     '"\\u00e6\\u0088\\u0091"' '"\xe6\x88\x91"'
 
 
-def dump(obj, encoding='utf-8', indent=None):
+def dump(obj, encoding="utf-8", indent=None):
     # - Using non-unicode with ensure_ascii=True results in unexpected output:
     #       p3fjson.dump('我',  ensure_ascii=True)  --> '"\\u00e6\\u0088\\u0091"'
     #
@@ -57,10 +57,8 @@ def dump(obj, encoding='utf-8', indent=None):
 
 
 def ensure_str(o):
-
     if isinstance(o, bytes):
-        raise TypeError('string({o} {tp}) must be str'
-                        ' if ensure_ascii is True'.format(o=o, tp=type(o)))
+        raise TypeError("string({o} {tp}) must be str if ensure_ascii is True".format(o=o, tp=type(o)))
 
     if isinstance(o, dict):
         for k, v in o.items():

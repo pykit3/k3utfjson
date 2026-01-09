@@ -1,7 +1,6 @@
 # k3utfjson
 
 [![Action-CI](https://github.com/pykit3/k3utfjson/actions/workflows/python-package.yml/badge.svg)](https://github.com/pykit3/k3utfjson/actions/workflows/python-package.yml)
-[![Build Status](https://travis-ci.com/pykit3/k3utfjson.svg?branch=master)](https://travis-ci.com/pykit3/k3utfjson)
 [![Documentation Status](https://readthedocs.org/projects/k3utfjson/badge/?version=stable)](https://k3utfjson.readthedocs.io/en/stable/?badge=stable)
 [![Package](https://img.shields.io/pypi/pyversions/k3utfjson)](https://pypi.org/project/k3utfjson)
 

@@ -18,6 +18,8 @@ utfjson: force `json.dump` and `json.load` in `utf-8` encoding.
 This library is considered production ready.
 
 
+
+
 # Install
 
 ```
@@ -27,12 +29,10 @@ pip install k3utfjson
 # Synopsis
 
 ```python
-
 import k3utfjson
 
 k3utfjson.load('"hello"')
 k3utfjson.dump({})
-
 ```
 
 #   Author

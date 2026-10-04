@@ -24,7 +24,7 @@ data = k3utfjson.load('"hello 世界"')
 print(data)  # hello 世界
 
 # Dump to JSON string (UTF-8)
-json_str = k3utfjson.dump({'msg': '你好'})
+json_str = k3utfjson.dump({"msg": "你好"})
 print(json_str)  # {"msg": "你好"}
 ```
 

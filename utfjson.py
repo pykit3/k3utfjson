@@ -1,6 +1,3 @@
-#!/usr/bin/env python2
-# coding: utf-8
-
 # utfjson use python3 json module in python2.
 #
 # json module in python2 does not support disabling decoding string into
@@ -15,7 +12,6 @@
 # Thus we ported python3 json module here and have made modification in order
 # to let it pass python2 json test suites.
 import json
-
 
 # expected behavior to dump '我':
 #           source             encoding=None  encoding='utf-8'
@@ -58,7 +54,7 @@ def dump(obj, encoding="utf-8", indent=None):
 
 def ensure_str(o):
     if isinstance(o, bytes):
-        raise TypeError("string({o} {tp}) must be str if ensure_ascii is True".format(o=o, tp=type(o)))
+        raise TypeError(f"string({o} {type(o)}) must be str if ensure_ascii is True")
 
     if isinstance(o, dict):
         for k, v in o.items():

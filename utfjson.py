@@ -12,29 +12,29 @@ def dump(obj, encoding="utf-8", indent=None):
         ensure_ascii = True
 
     else:
-        obj = decode_bytes(obj, encoding)
+        obj = _decode_bytes(obj, encoding)
         # Non-ASCII chars are kept as they are, not escaped.
         ensure_ascii = False
 
     return json.dumps(obj, ensure_ascii=ensure_ascii, indent=indent)
 
 
-def decode_bytes(o, encoding):
+def _decode_bytes(o: object, encoding: str) -> object:
     if isinstance(o, bytes):
         return o.decode(encoding)
 
     if isinstance(o, dict):
         rst = {}
         for k, v in o.items():
-            key = decode_bytes(k, encoding)
+            key = _decode_bytes(k, encoding)
             if key in rst:
                 raise ValueError(f"two dict keys decode to {key!r}")
-            rst[key] = decode_bytes(v, encoding)
+            rst[key] = _decode_bytes(v, encoding)
 
     elif isinstance(o, (list, tuple)):
         rst = []
         for v in o:
-            rst.append(decode_bytes(v, encoding))
+            rst.append(_decode_bytes(v, encoding))
     else:
         rst = o
 

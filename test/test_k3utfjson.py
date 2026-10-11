@@ -84,6 +84,12 @@ class TestUTFJson(unittest.TestCase):
                 k3utfjson.dump(obj)
             self.assertEqual("two dict keys decode to 'a'", str(ctx.exception))
 
+    def test_dump_invalid_bytes(self):
+        obj = {"a": [b"\xff"]}
+        with self.assertRaises(UnicodeDecodeError):
+            k3utfjson.dump(obj)
+        self.assertEqual({"a": [b"\xff"]}, obj)
+
     def test_dump(self):
         self.assertEqual("null", k3utfjson.dump(None))
         self.assertEqual("{}", k3utfjson.dump({}))
@@ -98,28 +104,17 @@ class TestUTFJson(unittest.TestCase):
         self.assertEqual('"' + b"\xb6\xd4".decode("gbk") + '"', k3utfjson.dump("对", encoding="gbk"))
         self.assertEqual('"' + b"\xe6\x88\x91".decode("utf-8") + '"', k3utfjson.dump("我", encoding="utf-8"))
 
-        self.assertEqual('"' + b"\xe6\x88\x91".decode("utf-8") + '"', k3utfjson.dump("我"))
-        self.assertEqual('"' + b"\xe6\x88\x91".decode("utf-8") + '"', k3utfjson.dump("我"))
-
-        # by default unicode are encoded
-
-        self.assertEqual(
-            '{"' + b"\xe6\x88\x91".decode("utf-8") + '": "' + b"\xe6\x88\x91".decode("utf-8") + '"}',
-            k3utfjson.dump({"我": "我"}),
+        # By default str and bytes are dumped as utf-8 chars, at any depth.
+        cases = (
+            ("我", '"我"'),
+            (b"\xe6\x88\x91", '"我"'),
+            ({"我": "我"}, '{"我": "我"}'),
+            ({b"\xe6\x88\x91": b"\xe6\x88\x91"}, '{"我": "我"}'),
+            (("我",), '["我"]'),
+            ({"a": [b"\xe6\x88\x91", ("我", {b"b": b"\xe6\x88\x91"})]}, '{"a": ["我", ["我", {"b": "我"}]]}'),
         )
-        self.assertEqual(
-            '{"' + b"\xe6\x88\x91".decode("utf-8") + '": "' + b"\xe6\x88\x91".decode("utf-8") + '"}',
-            k3utfjson.dump({"我": "我"}),
-        )
-        self.assertEqual(
-            '{"' + b"\xe6\x88\x91".decode("utf-8") + '": "' + b"\xe6\x88\x91".decode("utf-8") + '"}',
-            k3utfjson.dump({"我": "我"}),
-        )
-        self.assertEqual(
-            '{"' + b"\xe6\x88\x91".decode("utf-8") + '": "' + b"\xe6\x88\x91".decode("utf-8") + '"}',
-            k3utfjson.dump({"我": "我"}),
-        )
-        self.assertEqual('["' + b"\xe6\x88\x91".decode("utf-8") + '"]', k3utfjson.dump(("我",)))
+        for obj, expected in cases:
+            self.assertEqual(expected, k3utfjson.dump(obj))
 
         self.assertEqual('{"\\u6211": "\\u6211"}', k3utfjson.dump({"我": "我"}, encoding=None))
 

@@ -74,6 +74,16 @@ class TestUTFJson(unittest.TestCase):
         self.assertEqual({"a": "我"}, k3utfjson.load('{"a": "我"}'))
         self.assertEqual(["我"], k3utfjson.load('["我"]'))
 
+    def test_dump_key_collision(self):
+        cases = (
+            {b"a": 1, "a": 2},
+            {"x": [{"a": 1, b"a": 2}]},
+        )
+        for obj in cases:
+            with self.assertRaises(ValueError) as ctx:
+                k3utfjson.dump(obj)
+            self.assertEqual("two dict keys decode to 'a'", str(ctx.exception))
+
     def test_dump(self):
         self.assertEqual("null", k3utfjson.dump(None))
         self.assertEqual("{}", k3utfjson.dump({}))

@@ -26,7 +26,10 @@ def decode_bytes(o, encoding):
     if isinstance(o, dict):
         rst = {}
         for k, v in o.items():
-            rst[decode_bytes(k, encoding)] = decode_bytes(v, encoding)
+            key = decode_bytes(k, encoding)
+            if key in rst:
+                raise ValueError(f"two dict keys decode to {key!r}")
+            rst[key] = decode_bytes(v, encoding)
 
     elif isinstance(o, (list, tuple)):
         rst = []
